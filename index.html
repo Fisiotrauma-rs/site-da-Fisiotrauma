@@ -3,13 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fisiotrauma | Clínica de Saúde</title>
+  <title>Fisiotrauma | A clínica do bem estar</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
   <header>
     <div class="container">
-      <h1 class="logo">Fisiotrauma</h1>
+      <!-- Logo + Slogan -->
+      <div class="branding">
+        <img src="img/logo-fisiotrauma.png" alt="Logo Fisiotrauma" class="logo-img" />
+        <div class="branding-text">
+          <h1 class="logo">Fisiotrauma</h1>
+          <p class="slogan">a clínica do bem estar</p>
+        </div>
+      </div>
+
+      <!-- Menu de navegação -->
       <nav>
         <ul class="menu">
           <li><a href="#">Início</a></li>
@@ -19,23 +28,27 @@
           <li><a href="#">Contato</a></li>
         </ul>
       </nav>
+
+      <!-- Botões de login -->
       <div class="login-buttons">
-        <a href="login/profissional.html" class="btn-login">Login Profissional</a>
-        <a href="login/paciente.html" class="btn-login">Login Paciente</a>
+        <a href="loginProfissional.html" class="btn-login">Login Profissional</a>
+        <a href="loginPaciente.html" class="btn-login">Login Paciente</a>
       </div>
     </div>
   </header>
 
   <main>
+    <!-- Seção Hero -->
     <section class="hero">
       <h2>Excelência em saúde e bem-estar</h2>
-      <p>Atendimento humanizado com tecnologia e cuidado.</p>
-      <a href="#" class="btn-agendar">Agende sua consulta</a>
+      <p>Atendimento humanizado e técnico de qualidade.<br>
+         Porque seu corpo merece cuidado.</p>
+      <a href="cadastro.html" class="btn-agendar">Agende sua consulta</a>
     </section>
   </main>
 
   <footer>
-    <p>&copy; 2025 Fisiotrauma. Todos os direitos reservados.</p>
+    <p>&copy; 2025 Fisiotrauma. Todos os direitos reservados. | Registro: E-336-RS</p>
   </footer>
 </body>
 </html>

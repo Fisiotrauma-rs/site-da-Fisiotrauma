@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro | Fisiotrauma</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .cadastro-container {
+      max-width: 500px;
+      margin: 80px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .cadastro-container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #2c3e50;
+    }
+    .cadastro-container label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 500;
+      color: #333;
+    }
+    .cadastro-container input,
+    .cadastro-container select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+    .cadastro-container button {
+      width: 100%;
+      padding: 12px;
+      background-color: #28a745;
+      color: #fff;
+      border: none;
+      border-radius: 25px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .cadastro-container button:hover {
+      background-color: #218838;
+    }
+    .cadastro-container p {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 0.9rem;
+    }
+    .cadastro-container a {
+      color: #0077cc;
+      text-decoration: none;
+    }
+    .cadastro-container a:hover {
+      text-decoration: underline;
+    }
+    .erro {
+      color: red;
+      font-size: 0.85rem;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="branding">
+        <img src="../img/logo-fisiotrauma.png" alt="Logo Fisiotrauma" class="logo-img" />
+        <div class="branding-text">
+          <h1 class="logo">Fisiotrauma</h1>
+          <p class="slogan">a clínica do bem estar</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="cadastro-container">
+      <h2>Cadastro de Paciente</h2>
+      <form id="formCadastro" action="#" method="post">
+        <label for="nome">Nome completo</label>
+        <input type="text" id="nome" name="nome" required>
+
+        <label for="email">E-mail</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="celular">Celular</label>
+        <input type="tel" id="celular" name="celular" placeholder="(xx) xxxxx-xxxx" required>
+
+        <label for="telefone">Telefone fixo</label>
+        <input type="tel" id="telefone" name="telefone" placeholder="(xx) xxxx-xxxx">
+
+        <label for="nascimento">Data de nascimento</label>
+        <input type="date" id="nascimento" name="nascimento" required>
+
+        <label for="cpf">CPF</label>
+        <input type="text" id="cpf" name="cpf" placeholder="Digite seu CPF" required>
+
+        <label for="senha">Senha</label>
+        <input type="password" id="senha" name="senha" required>
+
+        <label for="confirmar-senha">Confirmar senha</label>
+        <input type="password" id="confirmar-senha" name="confirmar-senha" required>
+
+        <label for="convenio">Convênio</label>
+        <select id="convenio" name="convenio" required>
+          <option value="">Selecione seu convênio</option>
+          <option value="medsenior">MedSênior</option>
+          <option value="fusex">FuSEx</option>
+          <option value="funsa">FUNSA</option>
+          <option value="saude-caixa">Saúde Caixa</option>
+          <option value="unimed">Unimed</option>
+          <option value="saude-pas">Saúde/PAS</option>
+          <option value="cabergs">Cabergs</option>
+          <option value="outros">Outros</option>
+          <option value="nao-possuo">Não possuo convênio</option>
+        </select>
+
+        <div id="mensagemErro" class="erro"></div>
+
+        <button type="submit">Cadastrar</button>
+      </form>
+      <p>Já tem conta? <a href="../login/loginPaciente.html">Faça login</a></p>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Fisiotrauma. Todos os direitos reservados. | Registro: E-336-RS</p>
+  </footer>
+
+  <script>
+    const form = document.getElementById('formCadastro');
+    const erro = document.getElementById('mensagemErro');
+
+    function validarCPF(cpf) {
+      cpf = cpf.replace(/[^\d]+/g,'');
+      if(cpf.length !== 11) return false;
+      if (/^(\d)\1+$/.test(cpf)) return false;
+
+      let soma = 0, resto;
+      for (let i=1; i<=9; i++) soma += parseInt(cpf.substring(i-1,i)) * (11-i);
+      resto = (soma * 10) % 11;
+      if ((resto === 10) || (resto === 11)) resto = 0;
+      if (resto !== parseInt(cpf.substring(9,10))) return false;
+
+      soma = 0;
+      for (let i=1; i<=10; i++) soma += parseInt(cpf.substring(i-1,i)) * (12-i);
+      resto = (soma * 10) % 11;
+      if ((resto === 10) || (resto === 11)) resto = 0;
+      if (resto !== parseInt(cpf.substring(10,11))) return false;
+
+      return true;
+    }
+
+    function validarCelular(celular) {
+      const regex = /^\(\d{2}\)\s?\d{5}-\d{4}$/;
+      return regex.test(celular);
+    }
+
+    function validarNascimento(data) {
+      const hoje = new Date();
+      const nascimento = new Date(data);
+      return nascimento <= hoje;
+    }
+
+    form.addEventListener('submit', function(e) {
+      erro.textContent = "";
+
+      const senha = document.getElementById('senha').value;
+      const confirmar = document.getElementById('confirmar-senha').value;
+      const cpf = document.getElementById('cpf').value;
+      const celular = document.getElementById('celular').value;
+      const nascimento = document.getElementById('nascimento').value;
+
+      if (senha !== confirmar) {
+        e.preventDefault();
+        erro.textContent = "As senhas não coincidem.";
+        return;
+      }
+
+      if (!validarCPF(cpf)) {
+        e.preventDefault();
+        erro.textContent = "CPF inválido.";
+        return;
+      }
+
+      if (!validarCelular(celular)) {
+        e.preventDefault();
+        erro.textContent = "Celular inválido. Use o formato (xx) xxxxx-xxxx.";
+        return;
+      }
+
+      if (!validarNascimento(nascimento)) {
+        e.preventDefault();
+        erro.textContent = "Data de nascimento não pode ser futura.";
+        return;
+      }
+    });
+  </script>
+</body>
+</html>
